@@ -12,8 +12,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
-        Intent i = new Intent(this, ListView.class);        
-        startActivity(i);
+        /*Intent i = new Intent(this, ListView.class);        
+        startActivity(i);*/
     }
 
     @Override

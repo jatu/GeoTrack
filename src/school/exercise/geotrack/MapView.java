@@ -3,7 +3,6 @@ package school.exercise.geotrack;
 import android.os.Bundle;
 import android.view.Menu;
 import com.google.android.maps.MapActivity;
-//import android.app.Activity;
 
 
 public class MapView extends MapActivity {

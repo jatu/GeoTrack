@@ -29,7 +29,7 @@ public class TabLayoutActivity extends TabActivity {
         
         TabSpec mapSpec = tabHost.newTabSpec("Map");
         mapSpec.setIndicator("Map", getResources().getDrawable(R.drawable.ic_launcher));
-        Intent mapIntent = new Intent(this, MapView.class);
+        Intent mapIntent = new Intent(this, MapViewActivity.class);
         mapSpec.setContent(mapIntent);
         
         tabHost.addTab(mainSpec);

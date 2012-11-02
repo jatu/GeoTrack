@@ -6,5 +6,8 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_map_view">MapView</string>
     <string name="title_activity_list_view">ListView</string>
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="splash">splash</string>
+    <string name="title_activity_tab_layout">TabLayoutActivity</string>
 
 </resources>

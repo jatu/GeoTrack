@@ -36,20 +36,15 @@ public class ListViewActivity extends ListActivity implements SimpleLocationList
  
         // prepare the list of all records
         fillMaps = new ArrayList<HashMap<String, String>>();
-        /*for(int i = 0; i < 10; i++){
-            HashMap<String, String> map = new HashMap<String, String>();
-            map.put("rowid", "col_1_item_" + i);
-            map.put("col_1", "col_2_item_" + i);
-            fillMaps.add(map);
-        }*/
-
-
-        // fill in the grid_item layout
 
         SimpleAdapter adapter = new SimpleAdapter(this, fillMaps, R.layout.grid_item, from, to);
         listView.setAdapter(adapter);
         
-        //((SingletonManager)getApplication()).registerSingleton(this, ListViewActivity.class);
+        try {
+			((SingletonManager)getApplication()).registerSingleton(this, ListViewActivity.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
         ((SimpleLocationRegisterator)getApplication()).registerSimpleLocationListener(this);
         
 	  }
@@ -72,7 +67,9 @@ public class ListViewActivity extends ListActivity implements SimpleLocationList
     @Override
     protected void onListItemClick(android.widget.ListView l, View v, int position, long id) {  	
     	String item = (String) getListAdapter().getItem(position);
-	    Toast.makeText(this, item + " selected", Toast.LENGTH_LONG).show();	 
+	    Toast.makeText(this, item + " selected", Toast.LENGTH_LONG).show();
+	    
+	   // ((MapViewActivity)((SingletonManager)getApplication()).getSingleton(MapViewActivity.class)).
     }
 
     

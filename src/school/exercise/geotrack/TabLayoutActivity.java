@@ -36,7 +36,11 @@ public class TabLayoutActivity extends TabActivity {
         tabHost.addTab(listSpec);
         tabHost.addTab(mapSpec);
      
-        //((SingletonManager)getApplication()).registerSingleton(this, TabLayoutActivity.class);
+        try {
+			((SingletonManager)getApplication()).registerSingleton(this, TabLayoutActivity.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
         
     }
 

@@ -33,9 +33,12 @@ public class MapViewActivity extends MapActivity implements SimpleLocationListen
         
         // call convenience method that zooms map on our location
         //zoomToMyLocation();
-        //((ListViewActivity)(((SingletonManager)getApplication()).getSingleton(ListViewActivity.class))).PainuVittuun();
-        
-        //((SingletonManager)getApplication()).registerSingleton(this, MapViewActivity.class);
+
+        try {
+			((SingletonManager)getApplication()).registerSingleton(this, MapViewActivity.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
         ((SimpleLocationRegisterator)getApplication()).registerSimpleLocationListener(this);        
         
 

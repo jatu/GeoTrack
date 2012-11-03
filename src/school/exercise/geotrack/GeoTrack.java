@@ -15,7 +15,9 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 
-public class GeoTrack extends Application implements SimpleLocationRegisterator, SimpleLocationListener, LocationListener  {
+public class GeoTrack extends Application implements SimpleLocationRegisterator, SimpleLocationListener, SingletonManager, LocationListener {
+
+	
 	
 	ArrayList<SimpleLocationListener> locationListeners;
 	Map<Class<?>, Object> singletones;
@@ -31,8 +33,9 @@ public class GeoTrack extends Application implements SimpleLocationRegisterator,
 	}	
 	
 	public void registerSingleton(Object activity, Class<?> cls) throws Exception {
-		if (singletones.containsKey(cls))
+		if (singletones.containsKey(cls)) {			
 			throw new Exception("Cannot create more than one sigleton object per type.");
+		}
 		else
 			singletones.put(cls, activity);
 	}

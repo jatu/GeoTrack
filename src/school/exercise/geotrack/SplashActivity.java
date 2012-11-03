@@ -22,7 +22,11 @@ public class SplashActivity extends Activity {
         	}
         };
         
-        //((SingletonManager)getApplication()).registerSingleton(this, SplashActivity.class);
+        try {
+			((SingletonManager)getApplication()).registerSingleton(this, SplashActivity.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
         
         Timer timer = new Timer();
         timer.schedule(task, 500);

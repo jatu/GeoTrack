@@ -23,7 +23,7 @@ public class SplashActivity extends Activity {
         };
         
         Timer timer = new Timer();
-        timer.schedule(task, 5000);
+        timer.schedule(task, 500);
     }
 
     @Override
@@ -31,4 +31,7 @@ public class SplashActivity extends Activity {
         getMenuInflater().inflate(R.menu.activity_splash, menu);
         return true;
     }
+    
+    
+    
 }

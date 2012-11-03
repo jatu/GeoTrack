@@ -24,8 +24,8 @@ public class GPSTracker extends Service implements LocationListener  {
     boolean canGetLocation = false;
  
     Location location; // location
-    double latitude; // latitude
-    double longitude; // longitude
+    //double latitude; // latitude
+    //double longitude; // longitude
     
  // The minimum distance to change Updates in meters
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10; // 10 meters
@@ -38,10 +38,16 @@ public class GPSTracker extends Service implements LocationListener  {
 	
     public GPSTracker(Context context) {
         this.mContext = context;
-        getLocation();
+        initLocationManager();
     }
     
-    public Location getLocation() {
+    public Location getLocation()
+    {
+    	return location;    
+    }
+    
+    
+    private void initLocationManager() {
         try {
             locationManager = (LocationManager) mContext
                     .getSystemService(LOCATION_SERVICE);
@@ -54,66 +60,54 @@ public class GPSTracker extends Service implements LocationListener  {
             isNetworkEnabled = locationManager
                     .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
  
-            if (!isGPSEnabled && !isNetworkEnabled) {
-                // no network provider is enabled
-            } else {
-                this.canGetLocation = true;
+
+                
+
+                // if GPS Enabled get lat/long using GPS Services
+                if (isGPSEnabled) {
+                    locationManager.requestLocationUpdates(
+                    		LocationManager.GPS_PROVIDER,
+                            MIN_TIME_BW_UPDATES,
+                            MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+                    Log.d("GPS Enabled", "GPS Enabled");
+   
+                    location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);                                   
+                }
+                
                 // First get location from Network Provider
-                if (isNetworkEnabled) {
+                if (location == null && isNetworkEnabled) {
                     locationManager.requestLocationUpdates(
                             LocationManager.NETWORK_PROVIDER,
                             MIN_TIME_BW_UPDATES,
                             MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
                     Log.d("Network", "Network");
-                    if (locationManager != null) {
-                        location = locationManager
-                                .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-                        if (location != null) {
-                            latitude = location.getLatitude();
-                            longitude = location.getLongitude();
-                        }
-                    }
+                    location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                    
                 }
-                // if GPS Enabled get lat/long using GPS Services
-                if (isGPSEnabled) {
-                    if (location == null) {
-                        locationManager.requestLocationUpdates(
-                                LocationManager.GPS_PROVIDER,
-                                MIN_TIME_BW_UPDATES,
-                                MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
-                        Log.d("GPS Enabled", "GPS Enabled");
-                        if (locationManager != null) {
-                            location = locationManager
-                                    .getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                            if (location != null) {
-                                latitude = location.getLatitude();
-                                longitude = location.getLongitude();
-                            }
-                        }
-                    }
-                }
-            }
+
+                if (location != null)
+                	this.canGetLocation = true;
+                else
+                	this.canGetLocation = false;
+                
  
         } catch (Exception e) {
             e.printStackTrace();
         }
  
-        return location;
+    	
     }
     
 	public void onLocationChanged(Location location) {
-		// TODO Auto-generated method stub
-		
+		this.location = location;
 	}
 
 	public void onProviderDisabled(String provider) {
-		// TODO Auto-generated method stub
-		
+		initLocationManager();		
 	}
 
 	public void onProviderEnabled(String provider) {
-		// TODO Auto-generated method stub
-		
+		initLocationManager();
 	}
 
 	public void onStatusChanged(String provider, int status, Bundle extras) {

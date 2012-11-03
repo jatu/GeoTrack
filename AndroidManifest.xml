@@ -36,7 +36,7 @@
             android:required="true" />
 
         <activity
-            android:name=".ListView" />
+            android:name=".ListViewActivity" />
         <activity
             android:name=".MainActivity" />
         <activity

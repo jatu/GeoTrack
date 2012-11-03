@@ -43,14 +43,14 @@ public class MapViewActivity extends MapActivity {
 */
         
     }
-
+/*
     public void getLocation(GPSTracker gps) {
     	Location l = gps.getLocation();
     	double longitude = l.getLongitude();
     	double langitude = l.getLatitude();
     	
     	//mapView.
-    }
+    }*/
     
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -60,21 +60,25 @@ public class MapViewActivity extends MapActivity {
     
     private void zoomToMyLocation() {
     	
-    	getLocation(gpsTracker);
-    	
-    	GeoPoint myLocationGeoPoint = myLocationOverlay.getMyLocation();
-    	
+    	/*GeoPoint myLocationGeoPoint = myLocationOverlay.getMyLocation();
+    	GeoPoint p = new GeoPoint(
     	Location location = gpsTracker.getLocation();
         if(myLocationGeoPoint != null) {
                 mapView.getController().animateTo(myLocationGeoPoint);
-                mapView.getController().setZoom(10);
+                mapView.getController().setZoom(8);
                 
-                //mapView.getController().scrollBy(location, y)
+                //mapView.getController().scrollBy(location, y)*/
+    	
+    	Location location = gpsTracker.getLocation();
+    	
+    	if (location != null) {
+    		GeoPoint geoPoint = new GeoPoint((int)(location.getLatitude() * 1e6), (int)(location.getLongitude() * 1e6));
+    		mapView.getController().animateTo(geoPoint);
         }
         else {
                 Toast.makeText(this, "Cannot determine location", Toast.LENGTH_SHORT).show();
         }
-}
+    }
 
 	@Override
 	protected boolean isRouteDisplayed() {
@@ -82,10 +86,13 @@ public class MapViewActivity extends MapActivity {
 		return false;
 	}
 	
+	@Override
 	protected void onResume() {
+		super.onResume();
 		myLocationOverlay.enableMyLocation();
 	}
 	
+	@Override
 	protected void onPause() {
 		super.onPause();//This line has to stay
 		//Disable location detection

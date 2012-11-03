@@ -24,7 +24,7 @@ public class TabLayoutActivity extends TabActivity {
         
         TabSpec listSpec = tabHost.newTabSpec("List");
         listSpec.setIndicator("List", getResources().getDrawable(R.drawable.ic_launcher));
-        Intent listIntent = new Intent(this, ListView.class);
+        Intent listIntent = new Intent(this, ListViewActivity.class);
         listSpec.setContent(listIntent);
         
         TabSpec mapSpec = tabHost.newTabSpec("Map");
@@ -35,6 +35,7 @@ public class TabLayoutActivity extends TabActivity {
         tabHost.addTab(mainSpec);
         tabHost.addTab(listSpec);
         tabHost.addTab(mapSpec);
+        
     }
 
     @Override

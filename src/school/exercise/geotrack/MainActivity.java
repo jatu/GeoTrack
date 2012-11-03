@@ -12,8 +12,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
-        /*Intent i = new Intent(this, ListView.class);        
-        startActivity(i);*/
+        ((SingletonManager)getApplication()).registerSingleton(this, MainActivity.class);
     }
 
     @Override

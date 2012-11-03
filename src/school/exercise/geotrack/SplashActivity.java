@@ -22,6 +22,8 @@ public class SplashActivity extends Activity {
         	}
         };
         
+        //((SingletonManager)getApplication()).registerSingleton(this, SplashActivity.class);
+        
         Timer timer = new Timer();
         timer.schedule(task, 500);
     }
@@ -29,7 +31,7 @@ public class SplashActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_splash, menu);
-        return true;
+        return true;        
     }
     
     

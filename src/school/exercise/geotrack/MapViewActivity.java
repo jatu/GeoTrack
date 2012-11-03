@@ -11,18 +11,15 @@ import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapView;
 import com.google.android.maps.MyLocationOverlay;
 
-public class MapViewActivity extends MapActivity {
+public class MapViewActivity extends MapActivity implements SimpleLocationListener {
 
 	MapView mapView;
 	MyLocationOverlay myLocationOverlay;
-	GPSTracker gpsTracker;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_map_view);
-        
-        gpsTracker = new GPSTracker(this);
+        setContentView(R.layout.activity_map_view);        
         
         mapView = (MapView) findViewById(R.id.mapview);
         mapView.setBuiltInZoomControls(true);
@@ -35,12 +32,13 @@ public class MapViewActivity extends MapActivity {
         mapView.postInvalidate();
         
         // call convenience method that zooms map on our location
-        zoomToMyLocation();
+        //zoomToMyLocation();
+        //((ListViewActivity)(((SingletonManager)getApplication()).getSingleton(ListViewActivity.class))).PainuVittuun();
         
-/*        if(gpsTracker.getLocation() != null) {
-        	//Kun tämä suoritetaan niin spläshi loppuu
-        }
-*/
+        //((SingletonManager)getApplication()).registerSingleton(this, MapViewActivity.class);
+        ((SimpleLocationRegisterator)getApplication()).registerSimpleLocationListener(this);        
+        
+
         
     }
 /*
@@ -58,28 +56,33 @@ public class MapViewActivity extends MapActivity {
         return true;
     }
     
-    private void zoomToMyLocation() {
-    	
-    	/*GeoPoint myLocationGeoPoint = myLocationOverlay.getMyLocation();
-    	GeoPoint p = new GeoPoint(
-    	Location location = gpsTracker.getLocation();
-        if(myLocationGeoPoint != null) {
-                mapView.getController().animateTo(myLocationGeoPoint);
-                mapView.getController().setZoom(8);
-                
-                //mapView.getController().scrollBy(location, y)*/
-    	
-    	Location location = gpsTracker.getLocation();
-    	
-    	if (location != null) {
-    		GeoPoint geoPoint = new GeoPoint((int)(location.getLatitude() * 1e6), (int)(location.getLongitude() * 1e6));
-    		mapView.getController().animateTo(geoPoint);
-        }
-        else {
-                Toast.makeText(this, "Cannot determine location", Toast.LENGTH_SHORT).show();
-        }
-    }
+//    private void zoomToMyLocation() {
+//    	
+//    	/*GeoPoint myLocationGeoPoint = myLocationOverlay.getMyLocation();
+//    	GeoPoint p = new GeoPoint(
+////    	Location location = gpsTracker.getLocation();
+//        if(myLocationGeoPoint != null) {
+//                mapView.getController().animateTo(myLocationGeoPoint);
+//                mapView.getController().setZoom(8);
+//                
+//                //mapView.getController().scrollBy(location, y)*/
+//    	
+//    	Location location = gpsTracker.getLocation();
+//    	
+//    	if (location != null) {
+//    		GeoPoint geoPoint = new GeoPoint((int)(location.getLatitude() * 1e6), (int)(location.getLongitude() * 1e6));
+//    		mapView.getController().animateTo(geoPoint);
+//        }
+//        else {
+//                Toast.makeText(this, "Cannot determine location", Toast.LENGTH_SHORT).show();
+//        }
+//    }
 
+    public void onLocationChanged(Location location)
+    {
+    	
+    }
+    
 	@Override
 	protected boolean isRouteDisplayed() {
 		// TODO Auto-generated method stub

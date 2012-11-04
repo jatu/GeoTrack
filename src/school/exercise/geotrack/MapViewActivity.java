@@ -1,5 +1,6 @@
 package school.exercise.geotrack;
 
+import android.app.LocalActivityManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.Menu;
@@ -8,6 +9,7 @@ import android.widget.Toast;
 
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.GeoPoint;
+import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.MyLocationOverlay;
 
@@ -15,6 +17,7 @@ public class MapViewActivity extends MapActivity {
 
 	MapView mapView;
 	MyLocationOverlay myLocationOverlay;
+	MapController mapController;
 	
 	@Override
 	public void onSaveInstanceState(Bundle savedInstanceState) {
@@ -26,10 +29,12 @@ public class MapViewActivity extends MapActivity {
     	
     	super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_view);                
-        
+
         mapView = (MapView) findViewById(R.id.mapview);
         mapView.setBuiltInZoomControls(true);
 
+        mapController = mapView.getController();
+        
         // create an overlay that shows our current location
         myLocationOverlay = new MyLocationOverlay(this, mapView);
         
@@ -91,7 +96,7 @@ public class MapViewActivity extends MapActivity {
 	@Override
 	protected boolean isRouteDisplayed() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 	
 	@Override
@@ -108,7 +113,10 @@ public class MapViewActivity extends MapActivity {
 	}
 
 	public void ShowPosition(Location location) {
-		// TODO Auto-generated method stub
+		GeoPoint point = new GeoPoint((int) (location.getLatitude() / 1E6), (int) (location.getLongitude() / 1E6));
+		mapController.animateTo(point);
 		
+		((TabLayoutActivity)((SingletonManager)getApplication()).getSingleton(TabLayoutActivity.class)).tabHost.setCurrentTab(2);
+	   
 	}
 }

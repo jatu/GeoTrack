@@ -10,12 +10,14 @@ import android.content.Intent;
 
 public class TabLayoutActivity extends TabActivity {
 
+	TabHost tabHost;
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);   
         setContentView(R.layout.activity_tab_layout);
     
-        TabHost tabHost = getTabHost();
+        tabHost = getTabHost();
          
         TabSpec mainSpec = tabHost.newTabSpec("Main");
         mainSpec.setIndicator("Main", getResources().getDrawable(R.drawable.ic_launcher));

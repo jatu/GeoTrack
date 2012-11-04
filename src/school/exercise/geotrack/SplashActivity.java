@@ -17,8 +17,7 @@ public class SplashActivity extends Activity {
         
         TimerTask task = new TimerTask() {
         	public void run() {
-        		Intent mainIntent = new Intent().setClass(SplashActivity.this, TabLayoutActivity.class);
-        		startActivity(mainIntent);
+        		finish();
         	}
         };
         
@@ -37,6 +36,8 @@ public class SplashActivity extends Activity {
         getMenuInflater().inflate(R.menu.activity_splash, menu);
         return true;        
     }
+
+
     
     
     

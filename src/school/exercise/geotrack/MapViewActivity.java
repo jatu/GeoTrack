@@ -46,24 +46,13 @@ public class MapViewActivity extends MapActivity implements SimpleLocationListen
     	try {
 			((SingletonManager)getApplication()).registerSingleton(this, MapViewActivity.class);					        
     	} catch (Exception e) {			
-    		/*MapViewActivity oldMapView = (MapViewActivity)((SingletonManager)getApplication()).getSingleton(MapViewActivity.class);	        
-    		Bundle savedInfo = new Bundle();
-    		oldMapView.onSaveInstanceState(savedInfo);    		
-    		super.onCreate(savedInfo);*/
+    		e.printStackTrace();
     	}
         
 
         
     }
-/*
-    public void getLocation(GPSTracker gps) {
-    	Location l = gps.getLocation();
-    	double longitude = l.getLongitude();
-    	double langitude = l.getLatitude();
-    	
-    	//mapView.
-    }*/
-    
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_map_view, menu);
@@ -116,7 +105,7 @@ public class MapViewActivity extends MapActivity implements SimpleLocationListen
 		myLocationOverlay.disableCompass();
 	}
 
-	public void ShopPosition(Location location) {
+	public void ShowPosition(Location location) {
 		// TODO Auto-generated method stub
 		
 	}

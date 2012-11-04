@@ -72,7 +72,7 @@ public class ListViewActivity extends ListActivity implements SimpleLocationList
     	Map<String, Object> map = (Map<String, Object>) listView.getAdapter().getItem(position);
     	Location location = (Location) map.get("rowid");
   
-	    ((MapViewActivity)((SingletonManager)getApplication()).getSingleton(MapViewActivity.class)).ShopPosition(location);
+	    ((MapViewActivity)((SingletonManager)getApplication()).getSingleton(MapViewActivity.class)).ShowPosition(location);
 	    //Toast.makeText(this, item + " selected", Toast.LENGTH_LONG).show();
     }
 

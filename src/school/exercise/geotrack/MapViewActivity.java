@@ -113,10 +113,10 @@ public class MapViewActivity extends MapActivity {
 	}
 
 	public void ShowPosition(Location location) {
-		GeoPoint point = new GeoPoint((int) (location.getLatitude() / 1E6), (int) (location.getLongitude() / 1E6));
-		mapController.animateTo(point);
-		
-		((TabLayoutActivity)((SingletonManager)getApplication()).getSingleton(TabLayoutActivity.class)).tabHost.setCurrentTab(2);
-	   
+		int lat = (int) (location.getLatitude() * 1E6);
+	    int lng = (int) (location.getLongitude() * 1E6);
+		GeoPoint point = new GeoPoint(lat, lng);
+		mapController.setZoom(10);
+		mapController.animateTo(point);					   
 	}
 }

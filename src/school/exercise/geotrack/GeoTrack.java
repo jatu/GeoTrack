@@ -33,12 +33,23 @@ public class GeoTrack extends Application implements SimpleLocationRegisterator,
 		return singletones.get(cls);		
 	}	
 	
-	public void registerSingleton(Object activity, Class<?> cls) throws Exception {
+	public void registerSingleton(Object instance, Class<?> cls) throws Exception {
 		if (singletones.containsKey(cls)) {			
 			throw new Exception("Cannot create more than one sigleton object per type.");
 		}
+		else {
+			singletones.put(cls, instance);
+		}
+	}
+	
+	public void unRegisterSingleton(Class<?> cls) throws Exception {
+		if (!singletones.containsKey(cls)) {			
+			throw new Exception("Cannot unregister singleton bacause that class is never registered.");
+		}
 		else
-			singletones.put(cls, activity);
+		{
+			singletones.remove(cls);
+		}
 	}
 	
 	public void registerSimpleLocationListener(SimpleLocationListener listener)

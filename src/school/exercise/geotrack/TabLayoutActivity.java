@@ -12,11 +12,7 @@ public class TabLayoutActivity extends TabActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        
-
-        
-        
+        super.onCreate(savedInstanceState);   
         setContentView(R.layout.activity_tab_layout);
     
         TabHost tabHost = getTabHost();
@@ -45,12 +41,22 @@ public class TabLayoutActivity extends TabActivity {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
         
         Intent splashIntent = new Intent().setClass(this, SplashActivity.class);
  	    startActivity(splashIntent);
         
     }
+    
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		
+        try {
+			((SingletonManager)getApplication()).unRegisterSingleton(TabLayoutActivity.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+	}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

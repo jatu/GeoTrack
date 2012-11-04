@@ -19,6 +19,17 @@ public class MainActivity extends Activity {
 			e.printStackTrace();
 		}
     }
+    
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		
+        try {
+			((SingletonManager)getApplication()).unRegisterSingleton(MainActivity.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+	}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

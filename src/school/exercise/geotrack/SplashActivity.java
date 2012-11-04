@@ -31,6 +31,17 @@ public class SplashActivity extends Activity {
         timer.schedule(task, 500);
     }
 
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		
+        try {
+			((SingletonManager)getApplication()).unRegisterSingleton(SplashActivity.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+	}
+	
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_splash, menu);

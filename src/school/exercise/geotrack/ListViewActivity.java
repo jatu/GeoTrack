@@ -49,8 +49,19 @@ public class ListViewActivity extends ListActivity implements SimpleLocationList
 		}
         ((SimpleLocationRegisterator)getApplication()).registerSimpleLocationListener(this);
         
-	  }
-
+	}
+	
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		
+        try {
+			((SingletonManager)getApplication()).unRegisterSingleton(ListViewActivity.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+	}
+	
 	
     public void onLocationChanged(Location location) {
     	HashMap<String, Object> map = new HashMap<String, Object>();

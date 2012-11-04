@@ -48,10 +48,19 @@ public class MapViewActivity extends MapActivity implements SimpleLocationListen
     	} catch (Exception e) {			
     		e.printStackTrace();
     	}
-        
-
-        
+                
     }
+    
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		
+        try {
+			((SingletonManager)getApplication()).unRegisterSingleton(MapViewActivity.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+	}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

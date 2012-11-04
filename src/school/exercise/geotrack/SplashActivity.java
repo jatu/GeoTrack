@@ -3,40 +3,38 @@ package school.exercise.geotrack;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import android.location.Location;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 
-public class SplashActivity extends Activity {
-
+public class SplashActivity extends Activity implements SimpleLocationListener {
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         
-        TimerTask task = new TimerTask() {
-        	public void run() {
-        		finish();
-        	}
-        };
-        
         try {
-			((SingletonManager)getApplication()).registerSingleton(this, SplashActivity.class);
+			SingletonManager.registerSingleton(this, SplashActivity.class);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
         
-        Timer timer = new Timer();
-        timer.schedule(task, 500);
+        		
+        ((GPSTracker)SingletonManager.getSingleton(GPSTracker.class)).registerSimpleLocationListener(this);
+        ((GPSTracker)SingletonManager.getSingleton(GPSTracker.class)).initLocationManager();
     }
 
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
 		
+		((GPSTracker)SingletonManager.getSingleton(GPSTracker.class)).unRegisterSimpleLocationListener(this);
+		
         try {
-			((SingletonManager)getApplication()).unRegisterSingleton(SplashActivity.class);
+			SingletonManager.unRegisterSingleton(SplashActivity.class);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}	
@@ -47,6 +45,10 @@ public class SplashActivity extends Activity {
         getMenuInflater().inflate(R.menu.activity_splash, menu);
         return true;        
     }
+
+	public void onLocationChanged(Location location) {
+		finish();
+	}
 
 
     

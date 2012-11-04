@@ -14,7 +14,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         
         try {
-			((SingletonManager)getApplication()).registerSingleton(this, MainActivity.class);
+			SingletonManager.registerSingleton(this, MainActivity.class);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -25,7 +25,7 @@ public class MainActivity extends Activity {
 		super.onDestroy();
 		
         try {
-			((SingletonManager)getApplication()).unRegisterSingleton(MainActivity.class);
+			SingletonManager.unRegisterSingleton(MainActivity.class);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}	

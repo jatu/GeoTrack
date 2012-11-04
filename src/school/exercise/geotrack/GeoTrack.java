@@ -1,7 +1,9 @@
 package school.exercise.geotrack;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import android.app.Activity;
@@ -15,137 +17,43 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 
-public class GeoTrack extends Application implements SimpleLocationRegisterator, SimpleLocationListener, SingletonManager, LocationListener {
+public class GeoTrack extends Application implements SimpleLocationListener {
 
-	
-	
-	ArrayList<SimpleLocationListener> locationListeners;
-	Map<Class<?>, Object> singletones;
+	public List<HashMap<String, Object>> locationMaps;
 	
 	public GeoTrack() {
-		locationListeners = new ArrayList<SimpleLocationListener>();
-		singletones = new HashMap<Class<?>, Object>();
-		//initLocationManager();
+	
+		locationMaps = new ArrayList<HashMap<String, Object>>();
+		GPSTracker gpsTracker = new GPSTracker();
+		gpsTracker.registerSimpleLocationListener(this);
 		
+		try {
+			SingletonManager.registerSingleton(this, GeoTrack.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
 	}
 
-	public Object getSingleton(Class<?> cls) {
-		return singletones.get(cls);		
-	}	
-	
-	public void registerSingleton(Object instance, Class<?> cls) throws Exception {
-		if (singletones.containsKey(cls)) {			
-			throw new Exception("Cannot create more than one sigleton object per type.");
-		}
-		else {
-			singletones.put(cls, instance);
-		}
-	}
-	
-	public void unRegisterSingleton(Class<?> cls) throws Exception {
-		if (!singletones.containsKey(cls)) {			
-			throw new Exception("Cannot unregister singleton bacause that class is never registered.");
-		}
-		else
-		{
-			singletones.remove(cls);
-		}
-	}
-	
-	public void registerSimpleLocationListener(SimpleLocationListener listener)
-	{
-		locationListeners.add(listener);
-		initLocationManager(); //Purkka
-	}
-	
-	public void onLocationChanged(Location location)
-	{
-		this.location = location;
-		for (SimpleLocationListener locationListener : locationListeners)
-			locationListener.onLocationChanged(location);
-	}
-	
-		// flag for GPS status
-    boolean isGPSEnabled = false;
-    // flag for network status
-    boolean isNetworkEnabled = false;
-    // flag for GPS status
-    boolean canGetLocation = false;
- 
-    Location location; // location
-
- // The minimum distance to change Updates in meters
-    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10; // 10 meters
-    // The minimum time between updates in milliseconds
-    private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1; // 1 minute
-    // Declaring a Location Manager
-    protected LocationManager locationManager;
-    
-    public Location getLocation()
-    {
-    	return location;    
-    }
-    
-    private void initLocationManager() {
-        try {
-            locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
-            
-            // getting GPS status
-            isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
- 
-            // getting network status
-            isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
- 
-
-                
-
-                // if GPS Enabled get lat/long using GPS Services
-                if (isGPSEnabled) {
-                    locationManager.requestLocationUpdates(
-                    		LocationManager.GPS_PROVIDER,
-                            MIN_TIME_BW_UPDATES,
-                            MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
-                    Log.d("GPS Enabled", "GPS Enabled");
-   
-                    location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);                                   
-                }
-                
-                // First get location from Network Provider
-                if (location == null && isNetworkEnabled) {
-                    locationManager.requestLocationUpdates(
-                            LocationManager.NETWORK_PROVIDER,
-                            MIN_TIME_BW_UPDATES,
-                            MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
-                    Log.d("Network", "Network");
-                    location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-                    
-                }
-
-                if (location != null)
-                	this.canGetLocation = true;
-                else
-                	this.canGetLocation = false;
-                
- 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
- 
-    	
-    }
-   
-
-	public void onProviderDisabled(String provider) {
-		initLocationManager();		
-	}
-
-	public void onProviderEnabled(String provider) {
-		initLocationManager();
-	}
-
-	public void onStatusChanged(String provider, int status, Bundle extras) {
-		// TODO Auto-generated method stub
+	@Override
+	public void onCreate() {
 		
+		try {
+			SingletonManager.registerSingleton(this, GeoTrack.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
 	}
+
+	public void onLocationChanged(Location location) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+        map.put("rowid", new MyLocation(location));
+        map.put("col_1", Calendar.getInstance().getTime().toLocaleString());
+        locationMaps.add(map);
+	}
+	
+	
+	
+	
+	
 	
 }

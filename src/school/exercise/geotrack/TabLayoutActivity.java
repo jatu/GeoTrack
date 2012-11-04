@@ -37,7 +37,7 @@ public class TabLayoutActivity extends TabActivity {
         tabHost.addTab(mapSpec);
         
         try {
-			((SingletonManager)getApplication()).registerSingleton(this, TabLayoutActivity.class);
+			SingletonManager.registerSingleton(this, TabLayoutActivity.class);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -52,7 +52,7 @@ public class TabLayoutActivity extends TabActivity {
 		super.onDestroy();
 		
         try {
-			((SingletonManager)getApplication()).unRegisterSingleton(TabLayoutActivity.class);
+        	SingletonManager.unRegisterSingleton(TabLayoutActivity.class);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}	

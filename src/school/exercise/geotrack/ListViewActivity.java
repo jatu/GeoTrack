@@ -21,33 +21,30 @@ import android.widget.Toast;
 
 public class ListViewActivity extends ListActivity implements SimpleLocationListener {
 
+	protected List<HashMap<String, Object>> locationMaps;	
 	
-	protected List<HashMap<String, Object>> fillMaps;
-	protected ListView listView;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_list_view);
         
-        //android.widget.ListView lv= (android.widget.ListView)findViewById(R.id.listview);
-        listView = getListView();
         
         // create the grid item mapping
         String[] from = new String[] {"rowid", "col_1"};
         int[] to = new int[] { R.id.item1, R.id.item2 };
  
         // prepare the list of all records
-        fillMaps = new ArrayList<HashMap<String, Object>>();
+        locationMaps = ((GeoTrack)SingletonManager.getSingleton(GeoTrack.class)).locationMaps;
 
-        SimpleAdapter adapter = new SimpleAdapter(this, fillMaps, R.layout.grid_item, from, to);
-        listView.setAdapter(adapter);
+        SimpleAdapter adapter = new SimpleAdapter(this, locationMaps, R.layout.grid_item, from, to);
+        getListView().setAdapter(adapter);
         
         try {
-			((SingletonManager)getApplication()).registerSingleton(this, ListViewActivity.class);
+			SingletonManager.registerSingleton(this, ListViewActivity.class);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-        ((SimpleLocationRegisterator)getApplication()).registerSimpleLocationListener(this);
+        ((GPSTracker)SingletonManager.getSingleton(GPSTracker.class)).registerSimpleLocationListener(this);
         
 	}
 	
@@ -56,7 +53,7 @@ public class ListViewActivity extends ListActivity implements SimpleLocationList
 		super.onDestroy();
 		
         try {
-			((SingletonManager)getApplication()).unRegisterSingleton(ListViewActivity.class);
+			SingletonManager.unRegisterSingleton(ListViewActivity.class);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}	
@@ -64,11 +61,7 @@ public class ListViewActivity extends ListActivity implements SimpleLocationList
 	
 	
     public void onLocationChanged(Location location) {
-    	HashMap<String, Object> map = new HashMap<String, Object>();
-        map.put("rowid", new MyLocation(location));
-        map.put("col_1", Calendar.getInstance().getTime().toLocaleString());
-        fillMaps.add(map);
-        ((SimpleAdapter)listView.getAdapter()).notifyDataSetChanged();
+        ((SimpleAdapter)getListView().getAdapter()).notifyDataSetChanged();
     }
 	
     @Override
@@ -80,10 +73,10 @@ public class ListViewActivity extends ListActivity implements SimpleLocationList
     @Override
     protected void onListItemClick(android.widget.ListView l, View v, int position, long id) {  	
  
-    	Map<String, Object> map = (Map<String, Object>) listView.getAdapter().getItem(position);
+    	Map<String, Object> map = (Map<String, Object>) getListView().getAdapter().getItem(position);
     	Location location = (Location) map.get("rowid");
   
-	    ((MapViewActivity)((SingletonManager)getApplication()).getSingleton(MapViewActivity.class)).ShowPosition(location);
+	    ((MapViewActivity)SingletonManager.getSingleton(MapViewActivity.class)).ShowPosition(location);
 	    //Toast.makeText(this, item + " selected", Toast.LENGTH_LONG).show();
     }
 

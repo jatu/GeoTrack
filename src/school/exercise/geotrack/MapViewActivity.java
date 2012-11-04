@@ -11,7 +11,7 @@ import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapView;
 import com.google.android.maps.MyLocationOverlay;
 
-public class MapViewActivity extends MapActivity implements SimpleLocationListener {
+public class MapViewActivity extends MapActivity {
 
 	MapView mapView;
 	MyLocationOverlay myLocationOverlay;
@@ -25,9 +25,6 @@ public class MapViewActivity extends MapActivity implements SimpleLocationListen
     public void onCreate(Bundle savedInstanceState) {
     	
     	super.onCreate(savedInstanceState);
-        ((SimpleLocationRegisterator)getApplication()).registerSimpleLocationListener(this);
-    	
-
         setContentView(R.layout.activity_map_view);                
         
         mapView = (MapView) findViewById(R.id.mapview);
@@ -44,7 +41,7 @@ public class MapViewActivity extends MapActivity implements SimpleLocationListen
         //zoomToMyLocation();
 
     	try {
-			((SingletonManager)getApplication()).registerSingleton(this, MapViewActivity.class);					        
+			SingletonManager.registerSingleton(this, MapViewActivity.class);					        
     	} catch (Exception e) {			
     		e.printStackTrace();
     	}
@@ -56,7 +53,7 @@ public class MapViewActivity extends MapActivity implements SimpleLocationListen
 		super.onDestroy();
 		
         try {
-			((SingletonManager)getApplication()).unRegisterSingleton(MapViewActivity.class);
+			SingletonManager.unRegisterSingleton(MapViewActivity.class);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}	
@@ -90,10 +87,6 @@ public class MapViewActivity extends MapActivity implements SimpleLocationListen
 //        }
 //    }
 
-    public void onLocationChanged(Location location)
-    {
-    	
-    }
     
 	@Override
 	protected boolean isRouteDisplayed() {

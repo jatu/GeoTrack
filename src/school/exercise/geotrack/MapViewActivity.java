@@ -16,10 +16,19 @@ public class MapViewActivity extends MapActivity implements SimpleLocationListen
 	MapView mapView;
 	MyLocationOverlay myLocationOverlay;
 	
+	@Override
+	public void onSaveInstanceState(Bundle savedInstanceState) {
+	  super.onSaveInstanceState(savedInstanceState);	  
+	}	
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_map_view);        
+    	
+    	super.onCreate(savedInstanceState);
+        ((SimpleLocationRegisterator)getApplication()).registerSimpleLocationListener(this);
+    	
+
+        setContentView(R.layout.activity_map_view);                
         
         mapView = (MapView) findViewById(R.id.mapview);
         mapView.setBuiltInZoomControls(true);
@@ -34,12 +43,14 @@ public class MapViewActivity extends MapActivity implements SimpleLocationListen
         // call convenience method that zooms map on our location
         //zoomToMyLocation();
 
-        try {
-			((SingletonManager)getApplication()).registerSingleton(this, MapViewActivity.class);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-        ((SimpleLocationRegisterator)getApplication()).registerSimpleLocationListener(this);        
+    	try {
+			((SingletonManager)getApplication()).registerSingleton(this, MapViewActivity.class);					        
+    	} catch (Exception e) {			
+    		/*MapViewActivity oldMapView = (MapViewActivity)((SingletonManager)getApplication()).getSingleton(MapViewActivity.class);	        
+    		Bundle savedInfo = new Bundle();
+    		oldMapView.onSaveInstanceState(savedInfo);    		
+    		super.onCreate(savedInfo);*/
+    	}
         
 
         
@@ -103,5 +114,10 @@ public class MapViewActivity extends MapActivity implements SimpleLocationListen
 		super.onPause();//This line has to stay
 		//Disable location detection
 		myLocationOverlay.disableCompass();
+	}
+
+	public void ShopPosition(Location location) {
+		// TODO Auto-generated method stub
+		
 	}
 }

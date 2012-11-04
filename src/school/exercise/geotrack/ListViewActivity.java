@@ -11,7 +11,9 @@ import android.os.Bundle;
 import android.app.ListActivity;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
@@ -20,7 +22,7 @@ import android.widget.Toast;
 public class ListViewActivity extends ListActivity implements SimpleLocationListener {
 
 	
-	protected List<HashMap<String, String>> fillMaps;
+	protected List<HashMap<String, Object>> fillMaps;
 	protected ListView listView;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +37,7 @@ public class ListViewActivity extends ListActivity implements SimpleLocationList
         int[] to = new int[] { R.id.item1, R.id.item2 };
  
         // prepare the list of all records
-        fillMaps = new ArrayList<HashMap<String, String>>();
+        fillMaps = new ArrayList<HashMap<String, Object>>();
 
         SimpleAdapter adapter = new SimpleAdapter(this, fillMaps, R.layout.grid_item, from, to);
         listView.setAdapter(adapter);
@@ -51,8 +53,8 @@ public class ListViewActivity extends ListActivity implements SimpleLocationList
 
 	
     public void onLocationChanged(Location location) {
-    	HashMap<String, String> map = new HashMap<String, String>();
-        map.put("rowid", "" + location.getLatitude() + ", " + location.getLongitude());
+    	HashMap<String, Object> map = new HashMap<String, Object>();
+        map.put("rowid", new MyLocation(location));
         map.put("col_1", Calendar.getInstance().getTime().toLocaleString());
         fillMaps.add(map);
         ((SimpleAdapter)listView.getAdapter()).notifyDataSetChanged();
@@ -66,10 +68,12 @@ public class ListViewActivity extends ListActivity implements SimpleLocationList
     
     @Override
     protected void onListItemClick(android.widget.ListView l, View v, int position, long id) {  	
-    	String item = (String) getListAdapter().getItem(position);
-	    Toast.makeText(this, item + " selected", Toast.LENGTH_LONG).show();
-	    
-	   // ((MapViewActivity)((SingletonManager)getApplication()).getSingleton(MapViewActivity.class)).
+ 
+    	Map<String, Object> map = (Map<String, Object>) listView.getAdapter().getItem(position);
+    	Location location = (Location) map.get("rowid");
+  
+	    ((MapViewActivity)((SingletonManager)getApplication()).getSingleton(MapViewActivity.class)).ShopPosition(location);
+	    //Toast.makeText(this, item + " selected", Toast.LENGTH_LONG).show();
     }
 
     

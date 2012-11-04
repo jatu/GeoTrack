@@ -26,6 +26,7 @@ public class GeoTrack extends Application implements SimpleLocationRegisterator,
 		locationListeners = new ArrayList<SimpleLocationListener>();
 		singletones = new HashMap<Class<?>, Object>();
 		//initLocationManager();
+		
 	}
 
 	public Object getSingleton(Class<?> cls) {

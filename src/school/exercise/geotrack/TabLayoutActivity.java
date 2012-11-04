@@ -17,6 +17,7 @@ public class TabLayoutActivity extends TabActivity {
         
         TabHost tabHost = getTabHost();
         
+        
         TabSpec mainSpec = tabHost.newTabSpec("Main");
         mainSpec.setIndicator("Main", getResources().getDrawable(R.drawable.ic_launcher));
         Intent mainIntent = new Intent(this, MainActivity.class);
@@ -35,12 +36,13 @@ public class TabLayoutActivity extends TabActivity {
         tabHost.addTab(mainSpec);
         tabHost.addTab(listSpec);
         tabHost.addTab(mapSpec);
-     
+  
         try {
 			((SingletonManager)getApplication()).registerSingleton(this, TabLayoutActivity.class);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
         
     }
 

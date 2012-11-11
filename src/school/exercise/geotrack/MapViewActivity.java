@@ -12,11 +12,12 @@ import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.MyLocationOverlay;
+import com.google.android.maps.OverlayItem;
 
 public class MapViewActivity extends MapActivity {
 
 	MapView mapView;
-	MyLocationOverlay myLocationOverlay;
+	//MyLocationOverlay myLocationOverlay;
 	MapController mapController;
 	
 	@Override
@@ -33,13 +34,12 @@ public class MapViewActivity extends MapActivity {
         mapView = (MapView) findViewById(R.id.mapview);
         mapView.setBuiltInZoomControls(true);
 
-        mapController = mapView.getController();
-        
+        mapController = mapView.getController();        
         // create an overlay that shows our current location
-        myLocationOverlay = new MyLocationOverlay(this, mapView);
+        //myLocationOverlay = new MyLocationOverlay(this, mapView);
         
         // add this overlay to the MapView and refresh it
-        mapView.getOverlays().add(myLocationOverlay);
+        mapView.getOverlays().add((Locations)SingletonManager.getSingleton(Locations.class));
         mapView.postInvalidate();
         
         // call convenience method that zooms map on our location
@@ -102,20 +102,21 @@ public class MapViewActivity extends MapActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		myLocationOverlay.enableMyLocation();
+		//myLocationOverlay.enableMyLocation();
 	}
 	
 	@Override
 	protected void onPause() {
 		super.onPause();//This line has to stay
 		//Disable location detection
-		myLocationOverlay.disableCompass();
+		//myLocationOverlay.disableCompass();
 	}
 
-	public void ShowPosition(Location location) {
-		int lat = (int) (location.getLatitude() * 1E6);
-	    int lng = (int) (location.getLongitude() * 1E6);
-		GeoPoint point = new GeoPoint(lat, lng);
+	public void ShowOverlay(int index) {		
+		Locations locations = (Locations)SingletonManager.getSingleton(Locations.class);
+		OverlayItem overlayItem = (OverlayItem)locations.overlays.get(index);
+		GeoPoint point = overlayItem.getPoint();
+		
 		mapController.setZoom(10);
 		mapController.animateTo(point);					   
 	}

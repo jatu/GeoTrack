@@ -17,11 +17,9 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 
-public class GeoTrack extends Application implements SimpleLocationListener {
-
-	public List<HashMap<String, Object>> locationMaps;
+public class GeoTrack extends Application {
 	
-	public GeoTrack() {
+	/*public GeoTrack() {
 	
 		locationMaps = new ArrayList<HashMap<String, Object>>();
 		GPSTracker gpsTracker = new GPSTracker();
@@ -32,28 +30,19 @@ public class GeoTrack extends Application implements SimpleLocationListener {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
-	}
+	}*/
 
 	@Override
 	public void onCreate() {
+		new GPSTracker();			
+		new Locations(getResources().getDrawable(R.drawable.ic_launcher));
 		
 		try {
 			SingletonManager.registerSingleton(this, GeoTrack.class);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}		
+		}				
 	}
-
-	public void onLocationChanged(Location location) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-        map.put("rowid", new MyLocation(location));
-        map.put("col_1", Calendar.getInstance().getTime().toLocaleString());
-        locationMaps.add(map);
-	}
-	
-	
-	
-	
 	
 	
 }

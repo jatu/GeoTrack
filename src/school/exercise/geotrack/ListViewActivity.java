@@ -34,7 +34,7 @@ public class ListViewActivity extends ListActivity implements SimpleLocationList
         int[] to = new int[] { R.id.item1, R.id.item2 };
  
         // prepare the list of all records
-        locationMaps = ((GeoTrack)SingletonManager.getSingleton(GeoTrack.class)).locationMaps;
+        locationMaps = ((Locations)SingletonManager.getSingleton(Locations.class)).locations;
 
         SimpleAdapter adapter = new SimpleAdapter(this, locationMaps, R.layout.grid_item, from, to);
         getListView().setAdapter(adapter);
@@ -73,11 +73,11 @@ public class ListViewActivity extends ListActivity implements SimpleLocationList
     @Override
     protected void onListItemClick(android.widget.ListView l, View v, int position, long id) {  	
  
-    	Map<String, Object> map = (Map<String, Object>) getListView().getAdapter().getItem(position);
-    	Location location = (Location) map.get("rowid");
+    	//Map<String, Object> map = (Map<String, Object>) getListView().getAdapter().getItem(position);
+    	//Location location = (Location) map.get("rowid");
     	    	
     	((TabLayoutActivity)SingletonManager.getSingleton(TabLayoutActivity.class)).tabHost.setCurrentTab(2);	    
-    	((MapViewActivity)SingletonManager.getSingleton(MapViewActivity.class)).ShowPosition(location);
+    	((MapViewActivity)SingletonManager.getSingleton(MapViewActivity.class)).ShowOverlay(position);
     }
 
     

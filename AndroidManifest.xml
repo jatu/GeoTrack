@@ -7,36 +7,37 @@
         android:minSdkVersion="8"
         android:targetSdkVersion="15" />
 
-
-            
         <!-- Ask permissions -->
         <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
         <uses-permission android:name="android.permission.INTERNET" />
         
     <application
-        android:icon="@drawable/ic_launcher"         
+        android:icon="@drawable/ic_launcher"        
         android:theme="@style/AppTheme"
-        android:name=".GeoTrack"        
+        android:name=".GeoTrack"
+        
         >
+        <activity
+            android:name=".SplashActivity"
+            android:configChanges="orientation" />
+        <activity
+            android:name=".MapViewActivity"
+        	android:configChanges="orientation" />
+
+            
         <uses-library
             android:name="com.google.android.maps"
             android:required="true" />
-        
-        <activity
-            android:name=".SplashActivity"
-            android:configChanges="orientation"/>
 
         <activity
-            android:name=".MapViewActivity" 
-			android:configChanges="orientation"/>
-        <activity
             android:name=".ListViewActivity" 
-            android:configChanges="orientation"/>
+        android:configChanges="orientation" />
         <activity
             android:name=".MainActivity" 
-            android:configChanges="orientation"/>
+        android:configChanges="orientation" />
+        
         <activity
-            android:name=".TabLayoutActivity" 
+            android:name=".TabLayoutActivity"
             android:configChanges="orientation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

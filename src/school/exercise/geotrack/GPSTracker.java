@@ -16,9 +16,9 @@ public class GPSTracker implements LocationListener, SimpleLocationListener {
     // flag for network status
 	private boolean isNetworkEnabled = false;
 	 // The minimum distance to change Updates in meters
-    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10; // 10 meters
+    private static long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10; // 10 meters
     // The minimum time between updates in milliseconds
-    private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1; // 1 minute
+    private static long MIN_TIME_BW_UPDATES = 1000 * 60 * 1; // 1 minute
     // Declaring a Location Manager
     private boolean inited = false;
     
@@ -35,6 +35,24 @@ public class GPSTracker implements LocationListener, SimpleLocationListener {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void setMinDistance(int i) {
+		MIN_DISTANCE_CHANGE_FOR_UPDATES = i;
+		initLocationManager();
+	}
+	
+	public void setMinTime(int i) {
+		MIN_TIME_BW_UPDATES = 1000 * i;
+		initLocationManager();
+	}
+	
+	public long getMinDistance() {
+		return MIN_DISTANCE_CHANGE_FOR_UPDATES;
+	}
+	
+	public long getMinTime() {
+		return MIN_TIME_BW_UPDATES;
 	}
 	
 	public void registerSimpleLocationListener(SimpleLocationListener listener)

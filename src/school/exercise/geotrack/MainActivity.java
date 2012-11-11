@@ -11,34 +11,39 @@ public class MainActivity extends Activity {
 
 	SeekBar minimumDistance;
 	SeekBar minimumTime;
-	
+
 	TextView distance;
 	TextView time;
-	
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        
-        try {
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+
+		try {
 			SingletonManager.registerSingleton(this, MainActivity.class);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-        
-        minimumDistance = (SeekBar)findViewById(R.id.seekBar1);
-        minimumTime = (SeekBar)findViewById(R.id.seekBar2);
-        
-        distance = (TextView) findViewById(R.id.distance);
-        time = (TextView) findViewById(R.id.time);
-        
-        minimumDistance.setProgress(10);
-        minimumTime.setProgress(5);
 
-		minimumDistance.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+		minimumDistance = (SeekBar) findViewById(R.id.seekBar1);
+		minimumTime = (SeekBar) findViewById(R.id.seekBar2);
+
+		distance = (TextView) findViewById(R.id.distance);
+		time = (TextView) findViewById(R.id.time);
+
+		minimumDistance.setProgress((int) ((GPSTracker) SingletonManager
+				.getSingleton(GPSTracker.class)).getMinDistance());
+		minimumTime.setProgress((int) ((GPSTracker) SingletonManager
+				.getSingleton(GPSTracker.class)).getMinDistance());
+
+		minimumDistance
+				.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 
 					public void onStopTrackingTouch(SeekBar seekBar) {
-						// TODO Auto-generated method stub
+						((GPSTracker) SingletonManager
+								.getSingleton(GPSTracker.class))
+								.setMinDistance(seekBar.getProgress());
 
 					}
 
@@ -56,7 +61,8 @@ public class MainActivity extends Activity {
 		minimumTime.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 
 			public void onStopTrackingTouch(SeekBar seekBar) {
-				// TODO Auto-generated method stub
+				((GPSTracker) SingletonManager.getSingleton(GPSTracker.class))
+						.setMinDistance(seekBar.getProgress());
 
 			}
 
@@ -70,22 +76,22 @@ public class MainActivity extends Activity {
 				time.setText(Integer.toString(progress));
 			}
 		});
-    }
-    
+	}
+
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		
-        try {
+
+		try {
 			SingletonManager.unRegisterSingleton(MainActivity.class);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}	
+		}
 	}
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_main, menu);
-        return true;
-    }
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.activity_main, menu);
+		return true;
+	}
 }

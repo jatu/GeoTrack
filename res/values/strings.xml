@@ -9,5 +9,8 @@
     <string name="title_activity_splash">SplashActivity</string>
     <string name="splash">splash</string>
     <string name="title_activity_tab_layout">TabLayoutActivity</string>
+    <string name="otsikko">GeoTrack</string>
+    <string name="txtKoko">44</string>
+    <string name="leveys">270</string>
 
 </resources>

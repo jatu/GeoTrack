@@ -15,13 +15,13 @@ public class GPSTracker implements LocationListener, SimpleLocationListener {
 	private boolean isGPSEnabled = false;
     // flag for network status
 	private boolean isNetworkEnabled = false;
-    // flag for GPS status
-	private boolean canGetLocation = false; 
 	 // The minimum distance to change Updates in meters
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10; // 10 meters
     // The minimum time between updates in milliseconds
     private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1; // 1 minute
     // Declaring a Location Manager
+    private boolean inited = false;
+    
     protected LocationManager locationManager;
 	
     private ArrayList<SimpleLocationListener> locationListeners;
@@ -66,7 +66,7 @@ public class GPSTracker implements LocationListener, SimpleLocationListener {
     public void initLocationManager() {
         try {        	
         	Context applicationContext = (Context)SingletonManager.getSingleton(GeoTrack.class);
-            locationManager = (LocationManager) applicationContext.getSystemService(applicationContext.LOCATION_SERVICE);
+            locationManager = (LocationManager) applicationContext.getSystemService(Context.LOCATION_SERVICE);
             
             // getting GPS status
             isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
@@ -96,17 +96,17 @@ public class GPSTracker implements LocationListener, SimpleLocationListener {
                     location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                     
                 }
-
-                if (location != null)
-                	this.canGetLocation = true;
-                else
-                	this.canGetLocation = false;
                 
+                inited = true;
  
         } catch (Exception e) {
             e.printStackTrace();
         }
  
+    }
+    
+    public boolean isInited() {
+    	return inited;
     }
    
 	public void onProviderDisabled(String provider) {

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.ItemizedOverlay;
@@ -13,9 +12,10 @@ import com.google.android.maps.OverlayItem;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 
+@SuppressWarnings("rawtypes")
 public class Locations extends ItemizedOverlay implements SimpleLocationListener {
 	
-	public List<HashMap<String, Object>> locations;
+	public ArrayList<HashMap<String, Object>> locations;
 	public ArrayList<OverlayItem> overlays;
 	
 	public Locations(Drawable marker) {

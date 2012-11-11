@@ -14,28 +14,30 @@
         <uses-permission android:name="android.permission.INTERNET" />
         
     <application
-        android:icon="@drawable/ic_launcher"        
-        android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" 
-        android:name=".GeoTrack"
+        android:icon="@drawable/ic_launcher"         
+        android:theme="@style/AppTheme"
+        android:name=".GeoTrack"        
         >
-        <activity
-            android:name=".SplashActivity"
-            android:theme="@android:style/Theme.Black.NoTitleBar" >
-        </activity>
-        <activity
-            android:name=".MapViewActivity" />
-
-            
         <uses-library
             android:name="com.google.android.maps"
             android:required="true" />
+        
+        <activity
+            android:name=".SplashActivity"
+            android:configChanges="orientation"/>
 
         <activity
-            android:name=".ListViewActivity" />
+            android:name=".MapViewActivity" 
+			android:configChanges="orientation"/>
         <activity
-            android:name=".MainActivity" />
+            android:name=".ListViewActivity" 
+            android:configChanges="orientation"/>
         <activity
-            android:name=".TabLayoutActivity" >
+            android:name=".MainActivity" 
+            android:configChanges="orientation"/>
+        <activity
+            android:name=".TabLayoutActivity" 
+            android:configChanges="orientation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" /> 

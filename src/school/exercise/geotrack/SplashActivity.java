@@ -1,12 +1,8 @@
 package school.exercise.geotrack;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import android.location.Location;
 import android.os.Bundle;
 import android.app.Activity;
-import android.content.Intent;
 import android.view.Menu;
 
 public class SplashActivity extends Activity implements SimpleLocationListener {
@@ -22,9 +18,15 @@ public class SplashActivity extends Activity implements SimpleLocationListener {
 			e.printStackTrace();
 		}
         
-        		
-        ((GPSTracker)SingletonManager.getSingleton(GPSTracker.class)).registerSimpleLocationListener(this);
-        ((GPSTracker)SingletonManager.getSingleton(GPSTracker.class)).initLocationManager();
+        
+        GPSTracker gpsTracker = ((GPSTracker)SingletonManager.getSingleton(GPSTracker.class)); 
+        if (gpsTracker.isInited() || ((Locations)SingletonManager.getSingleton(Locations.class)).locations.size() == 0) {        		
+        	gpsTracker.registerSimpleLocationListener(this);    
+        	gpsTracker.initLocationManager();
+        }
+        else {
+        	finish();
+        }
     }
 
 	@Override

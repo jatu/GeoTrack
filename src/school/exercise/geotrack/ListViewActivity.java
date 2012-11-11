@@ -1,22 +1,16 @@
 package school.exercise.geotrack;
 
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import android.location.Location;
 import android.os.Bundle;
 import android.app.ListActivity;
 import android.view.Menu;
 import android.view.View;
-import android.widget.Adapter;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
-import android.widget.ListView;
+
 import android.widget.SimpleAdapter;
-import android.widget.Toast;
+
 
 
 public class ListViewActivity extends ListActivity implements SimpleLocationListener {
@@ -71,11 +65,7 @@ public class ListViewActivity extends ListActivity implements SimpleLocationList
     }
     
     @Override
-    protected void onListItemClick(android.widget.ListView l, View v, int position, long id) {  	
- 
-    	//Map<String, Object> map = (Map<String, Object>) getListView().getAdapter().getItem(position);
-    	//Location location = (Location) map.get("rowid");
-    	    	
+    protected void onListItemClick(android.widget.ListView l, View v, int position, long id) {  	 	    	
     	((TabLayoutActivity)SingletonManager.getSingleton(TabLayoutActivity.class)).tabHost.setCurrentTab(2);	    
     	((MapViewActivity)SingletonManager.getSingleton(MapViewActivity.class)).ShowOverlay(position);
     }

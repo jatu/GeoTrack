@@ -1,17 +1,12 @@
 package school.exercise.geotrack;
 
-import android.app.LocalActivityManager;
-import android.location.Location;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.View;
-import android.widget.Toast;
 
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
-import com.google.android.maps.MyLocationOverlay;
 import com.google.android.maps.OverlayItem;
 
 public class MapViewActivity extends MapActivity {
@@ -70,29 +65,6 @@ public class MapViewActivity extends MapActivity {
         return true;
     }
     
-//    private void zoomToMyLocation() {
-//    	
-//    	/*GeoPoint myLocationGeoPoint = myLocationOverlay.getMyLocation();
-//    	GeoPoint p = new GeoPoint(
-////    	Location location = gpsTracker.getLocation();
-//        if(myLocationGeoPoint != null) {
-//                mapView.getController().animateTo(myLocationGeoPoint);
-//                mapView.getController().setZoom(8);
-//                
-//                //mapView.getController().scrollBy(location, y)*/
-//    	
-//    	Location location = gpsTracker.getLocation();
-//    	
-//    	if (location != null) {
-//    		GeoPoint geoPoint = new GeoPoint((int)(location.getLatitude() * 1e6), (int)(location.getLongitude() * 1e6));
-//    		mapView.getController().animateTo(geoPoint);
-//        }
-//        else {
-//                Toast.makeText(this, "Cannot determine location", Toast.LENGTH_SHORT).show();
-//        }
-//    }
-
-    
 	@Override
 	protected boolean isRouteDisplayed() {
 		// TODO Auto-generated method stub
@@ -117,7 +89,7 @@ public class MapViewActivity extends MapActivity {
 		OverlayItem overlayItem = (OverlayItem)locations.overlays.get(index);
 		GeoPoint point = overlayItem.getPoint();
 		
-		mapController.setZoom(10);
+		mapController.setZoom(13);
 		mapController.animateTo(point);					   
 	}
 }

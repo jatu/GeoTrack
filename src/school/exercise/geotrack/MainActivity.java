@@ -2,8 +2,6 @@ package school.exercise.geotrack;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.app.Application;
-import android.content.Intent;
 import android.view.Menu;
 
 public class MainActivity extends Activity {

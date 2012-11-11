@@ -34,6 +34,7 @@
             android:name=".ListViewActivity" />
         <activity
             android:name=".MainActivity" />
+        
         <activity
             android:name=".TabLayoutActivity" >
             <intent-filter>

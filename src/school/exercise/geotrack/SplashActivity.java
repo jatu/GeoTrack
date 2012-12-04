@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 
+/* SplashActivity n‰ytt‰‰ splashscreeni‰ niin kauan kunnes gpsTracker on saanut ensimm‰isen sijaintinsa */
+
 public class SplashActivity extends Activity implements SimpleLocationListener {
 	
     @Override

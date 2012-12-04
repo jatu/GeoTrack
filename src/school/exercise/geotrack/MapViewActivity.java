@@ -9,6 +9,10 @@ import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.OverlayItem;
 
+/*
+ * N‰ytt‰‰ kartan ja siihen luodut pisteet
+ */
+
 public class MapViewActivity extends MapActivity {
 
 	MapView mapView;

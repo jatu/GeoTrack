@@ -9,6 +9,10 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 
+/*
+ * GPSTracker, hakee sijainnin GPS:stä annetuilla ehdoilla
+ */
+
 public class GPSTracker implements LocationListener, SimpleLocationListener {	
 	
 	// flag for GPS status

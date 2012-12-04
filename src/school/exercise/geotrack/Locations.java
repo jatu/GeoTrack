@@ -12,6 +12,10 @@ import com.google.android.maps.OverlayItem;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 
+/*
+ * Pit‰‰ yll‰ sijainteja ja sijainteihin upotettuja p‰‰llysteit‰
+ */
+
 @SuppressWarnings("rawtypes")
 public class Locations extends ItemizedOverlay implements SimpleLocationListener {
 	

@@ -3,6 +3,10 @@ package school.exercise.geotrack;
 import java.util.HashMap;
 import java.util.Map;
 
+/*
+ * SingletonManager pitää yllä siihen rekisteröityjen luokkien instansseja josta ne on sitten helppo tarvittaessa hakea
+ */
+
 public class SingletonManager {
 
 	static protected Map<Class<?>, Object> singletones = new HashMap<Class<?>, Object>();;

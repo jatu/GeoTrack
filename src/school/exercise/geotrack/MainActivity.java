@@ -7,6 +7,8 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
+/* MainActivityst‰ voi m‰‰ritell‰ asetuksia kuten kuinka usein p‰ivitet‰‰n sijainti ja mill‰ et‰isyyksill‰ */
+
 public class MainActivity extends Activity {
 
 	SeekBar minimumDistance;

@@ -11,7 +11,9 @@ import android.view.View;
 
 import android.widget.SimpleAdapter;
 
-
+/*
+ * ListViewActivity, listaa sijainnit ja sijaintia klikkaamalla siirtyy kartalle annettuun sijaintiin
+ */
 
 public class ListViewActivity extends ListActivity implements SimpleLocationListener {
 

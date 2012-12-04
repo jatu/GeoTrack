@@ -7,6 +7,8 @@ import android.widget.TabHost.TabSpec;
 import android.app.TabActivity;
 import android.content.Intent;
 
+/* TabsLayout nimensä mukaisesti hallinnoi "tab"-käyttöliittymää */
+
 public class TabLayoutActivity extends TabActivity {
 
 	TabHost tabHost;
